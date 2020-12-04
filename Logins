@@ -101,15 +101,14 @@ int main()
 	unsigned tries = 3;
 	char character = ' ';
 
-	cout << "Podaj login" << endl;
-	cin >> login;
-	if (login != "Kelner" || login != "SzefKuchni" ||  login != "Manager" || login != "Dostawca")
-	{
-		cout << "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: " << endl;
-		
-	}
-	cin >> login;
-	
+
+	//cin >> login;
+
+
+
+	for(;;){
+        cout << "Podaj login" << endl;
+        cin >> login;
 		if (login == "Kelner")
 		{
 			cout << "Wpisano login dla kelnera" << endl;
@@ -129,8 +128,9 @@ int main()
 
 			if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
 			else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+            break;
 		}
-		if (login == "SzefKuchni")
+		else if (login == "SzefKuchni")
 		{
 			cout << "Wpisano login dla szefa kuchni" << endl;
 			do {
@@ -149,9 +149,10 @@ int main()
 
 			if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
 			else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+            break;
 		}
 
-		if (login == "Manager")
+		else if (login == "Manager")
 		{
 			cout << "Wpisano login dla Managera" << endl;
 			do {
@@ -170,9 +171,10 @@ int main()
 
 			if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
 			else cout << "\nHaslo poprawne. Witamy w systemie szefie!\n";
+			break;
 		}
 
-		if (login == "Dostawca")
+		else if (login == "Dostawca")
 		{
 			cout << "Wpisano login dla dostawcy" << endl;
 			do {
@@ -191,9 +193,17 @@ int main()
 
 			if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
 			else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+			break;
 		}
-	
+		else{
+
+            cout << "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: " << endl;
+           // break;
+
+
+		}
+	}
 	cout<<endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
-	system("pause");
+
 	return 0;
 }
