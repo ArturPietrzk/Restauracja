@@ -30,6 +30,7 @@ public:
 	string RodzajPlatnosciZaZamowienie;
 	void PrzygotowanieZamowienia();
 	void SerwowanieZamowienia();
+	void WydrukRachunku();
 };
 
 class Rachunek
