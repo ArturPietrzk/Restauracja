@@ -1,5 +1,6 @@
 #include<iostream>
 #include<conio.h>
+#include<Windows.h>
 
 using namespace std;
 class Szef_kuchni {
@@ -221,36 +222,51 @@ class Rachunek
 int main()
 {
 
-//  MENU  //////////////////////
-int ilosc_napojow = 6;
-int ilosc_posilkow = 5;
+	//  MENU  //////////////////////
+	int ilosc_napojow = 6;
+	int ilosc_posilkow = 5;
 
 
-Napoje *tab_Napoje = new Napoje[ilosc_napojow];
+	Napoje* tab_Napoje = new Napoje[ilosc_napojow];
 
-Posilki *tab_Posilki = new Posilki[ilosc_posilkow];
+	Posilki* tab_Posilki = new Posilki[ilosc_posilkow];
 
-tab_Napoje[0] = {1, "Woda mineralna 0,5l", 4};
-tab_Napoje[1] = {2, "Pepsi 0,5l", 5};
-tab_Napoje[2] = {3, "Mirinda 0,5l", 5};
-tab_Napoje[3] = {4, "Sprite 0,5l", 5};
-tab_Napoje[4] = {5, "Tymbark - pomarańcza 0,5l", 5};
-tab_Napoje[5] = {6, "Tymbark - wiśnia, jabłko 0,5l", 5};
+	tab_Napoje[0] = { 1, "Woda mineralna 0,5l", 4 };
+	tab_Napoje[1] = { 2, "Pepsi 0,5l", 5 };
+	tab_Napoje[2] = { 3, "Mirinda 0,5l", 5 };
+	tab_Napoje[3] = { 4, "Sprite 0,5l", 5 };
+	tab_Napoje[4] = { 5, "Tymbark - pomarańcza 0,5l", 5 };
+	tab_Napoje[5] = { 6, "Tymbark - wiśnia, jabłko 0,5l", 5 };
 
-tab_Posilki[0] = {1, "Pierogi ruskie", 15};
-tab_Posilki[1] = {2, "Pierogi z mięsem", 17};
-tab_Posilki[2] = {3, "Pierogi z truskawkami", 14};
-tab_Posilki[3] = {4, "Naleśniki z serem", 15};
-tab_Posilki[4] = {5, "Kotlet schabowy z grillowanymi warzywami, 25"};
+	tab_Posilki[0] = { 1, "Pierogi ruskie", 15 };
+	tab_Posilki[1] = { 2, "Pierogi z mięsem", 17 };
+	tab_Posilki[2] = { 3, "Pierogi z truskawkami", 14 };
+	tab_Posilki[3] = { 4, "Naleśniki z serem", 15 };
+	tab_Posilki[4] = { 5, "Kotlet schabowy z grillowanymi warzywami, 25" };
 
 
 
-//  LOGOWANIE  //////////////////
+	//  LOGOWANIE  //////////////////
 	string login;
-	
+
 	for (;;)
 	{
-		cout << "Wpisz id pracownika: " << endl;
+		cout << "\n\n\n\n";
+		cout << "\t\t*************************************************" << endl;
+		cout << "\t\t*                                               *" << endl;
+		cout << "\t\t*            WITAJ W SYSTEMIE RESTAURACJI !     *" << endl;
+		cout << "\t\t*                                               *" << endl;
+		cout << "\t\t*    DOSTEPNI UZYTKOWNNICY:                     *" << endl;
+		cout << "\t\t*  - Manager                                    *" << endl;
+		cout << "\t\t*  - Kelner                                     *" << endl;
+		cout << "\t\t*  - SzefKuchni                                *" << endl;
+		cout << "\t\t*  - Dostawca                                   *" << endl;
+		cout << "\t\t*                                               *" << endl;
+		cout << "\t\t*  WYBIERZ KONTO WPISUJAC LOGIN UZYTKOWNIKA     *" << endl;
+		cout << "\t\t*                                               *" << endl;
+		cout << "\t\t*************************************************" << endl;
+
+		cout << "Wpisz login: " << endl;
 		cin >> login;
 
 		if (login == "Kelner")
@@ -262,7 +278,7 @@ tab_Posilki[4] = {5, "Kotlet schabowy z grillowanymi warzywami, 25"};
 		else if (login == "SzefKuchni")
 		{
 			Szef_kuchni* szef = new Szef_kuchni;
-				szef->LogowanieSzefKuchni();
+			szef->LogowanieSzefKuchni();
 			break;
 		}
 		else if (login == "Dostawca")
@@ -280,7 +296,8 @@ tab_Posilki[4] = {5, "Kotlet schabowy z grillowanymi warzywami, 25"};
 		else
 		{
 			cout << "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: " << endl;
-			
+			Sleep(2000);
+			system("cls");
 		}
 	}
 
@@ -291,10 +308,10 @@ tab_Posilki[4] = {5, "Kotlet schabowy z grillowanymi warzywami, 25"};
 
 
 
-	cout<<endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
+	cout << endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
 
-    delete [] tab_Napoje;
-    delete [] tab_Posilki;
+	delete[] tab_Napoje;
+	delete[] tab_Posilki;
 
 	return 0;
 }
