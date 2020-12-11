@@ -256,10 +256,10 @@ int main()
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*            WITAJ W SYSTEMIE RESTAURACJI !     *" << endl;
 		cout << "\t\t*                                               *" << endl;
-		cout << "\t\t*    DOSTEPNI UZYTKOWNNICY:                     *" << endl;
+		cout << "\t\t*    DOSTEPNI UZYTKOWNICY:                      *" << endl;
 		cout << "\t\t*  - Manager                                    *" << endl;
 		cout << "\t\t*  - Kelner                                     *" << endl;
-		cout << "\t\t*  - SzefKuchni                                *" << endl;
+		cout << "\t\t*  - SzefKuchni                                 *" << endl;
 		cout << "\t\t*  - Dostawca                                   *" << endl;
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*  WYBIERZ KONTO WPISUJAC LOGIN UZYTKOWNIKA     *" << endl;
