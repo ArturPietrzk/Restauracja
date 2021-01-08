@@ -1,0 +1,663 @@
+#include<iostream>
+#include<conio.h>
+#include<Windows.h>
+#include<string.h>
+#include<conio.h>
+#include<math.h>
+#include<fstream>
+
+using namespace std;
+
+int i, n;
+ifstream fin;
+ofstream fout;
+fstream fio;
+void disp();
+class Szef_kuchni {
+
+public:
+	int NumerIDPracownika;
+	string ImieSzefaKuchni;
+	string NazwiskoSzefaKuchni;
+	char character = ' ';
+	unsigned tries = 3;
+	Szef_kuchni();
+	void LogowanieSzefKuchni();
+private:
+	string PasswordChef;
+	string password = "";
+};
+Szef_kuchni::Szef_kuchni()
+{
+	PasswordChef = "szefkuchni";
+}
+void Szef_kuchni::LogowanieSzefKuchni()
+{
+	cout << "Wpisano login dla szefa kuchni" << endl;
+	do {
+		cout << "Wpisz haslo: ";
+		while ((character = _getch()) != '\r') 
+		{
+			if (character != 8)
+			{
+				cout << "*";
+				password += character;
+			}
+			else
+			{
+				cout << ("\b \b"); 
+			}
+		}
+
+		if (password != PasswordChef) {
+			password = "";
+			tries -= 1;
+			cout << "\nDostepne proby: " << tries << endl;
+		}
+	} while (tries > 0 && password != PasswordChef);
+
+	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
+	else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+}
+class Kelner
+{
+public:
+	int NumerIDPracownika;
+	string ImieKelnera;
+	string NazwiskoKelnera;
+	char character = ' ';
+	unsigned tries = 3;
+	Kelner();
+	void LogowanieKelner();
+private:
+	string PasswordWaiter;
+	string password = "";
+};
+
+Kelner::Kelner()
+{
+	PasswordWaiter = "kelner";
+}
+void Kelner::LogowanieKelner()
+{
+	cout << "Wpisano login dla kelnera" << endl;
+	do {
+		cout << "Wpisz haslo: ";
+		while ((character = _getch()) != '\r') 
+		{
+			if (character != 8)
+			{
+				cout << "*";
+				password += character;
+			}
+			else
+			{
+				cout << ("\b \b");
+			}
+		}
+
+		if (password != PasswordWaiter) {
+			password = "";
+			tries -= 1;
+			cout << "\nDostepne proby: " << tries << endl;
+		}
+	} while (tries > 0 && password != PasswordWaiter);
+
+	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
+	else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+}
+
+
+class Zamowienie
+{
+public:
+	int NumerIDZamowienia;
+	//date TerminZamowienia;
+	int NumerKelnetaTegoZamowienia;
+	int KolejnoscZamowienia;
+	double ZnizkaNaZamowienie;
+	string StatusZamowienia;
+	string RodzajPlatnosciZaZamowienie;
+	void PrzygotowanieZamowienia();
+	void SerwowanieZamowienia();
+	void WydrukRachunku();
+};
+
+class Rachunek
+{
+public:
+	int NumerIDRachunku;
+	//Data wystawienia rachunku
+	string PozycjeZamowienia;
+	double CalkowityKosztZamowienia;
+	Rachunek();
+	void PrzekazanieRachunku();
+	double OdebranieZaplaty();
+};
+
+class Napoje {
+
+public:
+	int NumerIDNapoju;
+	string NazwaNapoju;
+	double CenaNapoju;
+};
+
+
+class Dostawca {
+
+public:
+	int NumerIDPracownika;
+	string ImieDostawcy;
+	string NazwiskoDostawcy;
+	char character = ' ';
+	unsigned tries = 3;
+	Dostawca();
+	void LogowanieDostawca();
+private:
+	string PasswordSupplier;
+	string password = "";
+};
+
+Dostawca::Dostawca()
+{
+	PasswordSupplier = "dostawca";
+}
+void Dostawca::LogowanieDostawca()
+{
+	cout << "Wpisano login dla dostawcy" << endl;
+	do {
+		cout << "Wpisz haslo: ";
+		while ((character = _getch()) != '\r') 
+		{
+			if (character != 8)
+			{
+				cout << "*";
+				password += character;
+			}
+			else
+			{
+				cout << ("\b \b");
+			}
+		}
+
+		if (password != PasswordSupplier) {
+			password = "";
+			tries -= 1;
+			cout << "\nDostepne proby: " << tries << endl;
+		}
+	} while (tries > 0 && password != PasswordSupplier);
+
+	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
+	else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+
+
+}
+class Manager {
+
+public:
+	int NumerIDPracownika;
+	string ImieManagera;
+	string NazwiskoManagera;
+	char character = ' ';
+	unsigned tries = 3;
+	Manager();
+	void LogowanieManager();
+private:
+	string PasswordManager;
+	string password = "";
+};
+Manager::Manager()
+{
+	PasswordManager = "manager";
+}
+void Manager::LogowanieManager()
+{
+	cout << "Wpisano login dla Managera" << endl;
+	do {
+		cout << "Wpisz haslo: ";
+		while ((character = _getch()) != '\r') 
+		{
+			if (character != 8)
+			{
+				cout << "*";
+				password += character;
+			}
+			else
+			{
+				cout << ("\b \b");
+			}
+		}
+
+		if (password != PasswordManager) {
+			password = "";
+			tries -= 1;
+			cout << "\nDostepne proby: " << tries << endl;
+		}
+	} while (tries > 0 && password != PasswordManager);
+
+	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
+	else cout << "\nHaslo poprawne. Witamy w systemie szefie!\n";
+}
+class Posilki
+{
+public:
+	int NumerIDPosilku;
+	string NazwaPosilku;
+	double CenaPosilku;
+	bool PrzygotowaniePosilku();
+};
+/*
+class Magazyn
+{
+	char name[20];
+public:
+	int NumerIdProduktu;
+	string NazwaProduktu;
+	double CenaProduktu;
+	Magazyn();
+	int stchk(char nm[30]);
+	void StanMagazynu();
+	void ZlozenieZamowienia();
+	void DostarczenieZamowienia();
+	void ZmianaStanuMagazynu();
+	
+}st;
+int Magazyn::stchk(char nm[30])
+{
+	if (strcmp(nm, name) == 0)
+		return 0;
+	else
+		return 1;
+}
+void Magazyn::StanMagazynu()
+{
+
+}
+void Magazyn::ZmianaStanuMagazynu()
+{
+
+}
+*/
+
+class stock
+{
+	char name[20], pass[15];
+	float pr; int quant;
+
+public:
+	void get();
+	void get2();
+	void show();
+	int stchk(char nm[30]);
+	void withd(int qty);
+	void refil(int qty);
+}st;
+void stock::withd(int qty)
+{
+	if (quant >= qty)
+	{
+		quant -= qty;
+		cout << "\n\nStan magazynu zaktualizowany.\n";
+		cout << "\n\nRazem będzie: :" << pr * qty;
+	}
+	else
+		cout << "\n\nInsufficient stock";
+	_getch();
+
+
+}
+
+void stock::refil(int qty)
+{
+
+	quant += qty;
+	cout << "\n\nStan magazynu zaaktalizowany.";
+	_getch();
+
+
+}
+int stock::stchk(char nm[30])
+{
+	if (strcmp(nm, name) == 0)
+		return 0;
+	else
+		return 1;
+}
+void stock::get()
+{
+	cin >> name >> pr >> quant;
+
+}
+void stock::get2()
+{
+	cin >> name >> quant;
+}
+
+void stock::show()
+{
+
+	cout << "\n" << name << "\t\t\t" << quant << "\t\t\t" << pr;
+}
+void addnew()
+{
+	
+
+	system("cls");
+	 	
+	disp();
+	_getch();
+	system("cls");
+
+	cout << "\nPodaj ilosc prouktow jaka chcesz dodac: ";
+	cin >> n;
+
+
+	if (n != 0)
+	{
+
+		int j, l, sum = 0;
+		fout.open("shop.dat", ios::binary | ios::app);
+		for (i = 0; i < n; i++)
+
+		{
+			
+			cout << "\n\nWprowadz Nazwe, cene i ilosc produktu zgodnie z kolejnościa\n\n";
+			st.get();
+			fout.write((char*)&st, sizeof(st));
+			cout << "\n\nProdukt zaaktualizowany";
+			cin.get();
+
+
+		}
+		cout << "\n\nStan magazynu zaaktualizowany!!";
+
+
+		fout.close();
+		cin.get();
+		system("cls");
+		disp();
+	}
+
+	else
+	{
+
+		fout.close();
+		cin.get();
+		system("cls");
+		cout << "\n\nNo items to be added";
+
+	}
+}
+void withdraw()
+{
+	system("cls");
+	char temp[100]; int qty;
+	int i = 0;
+	long pos = 0;
+	disp();
+	cout << "\n\nPodaj nazwe produktu \n" << endl;
+	cin >> temp;
+	cout << "\n\nPodaj ilosc: \n" << endl;
+	cin >> qty;
+	fio.open("shop.dat", ios::binary | ios::out | ios::in);
+	while (fio)
+	{
+		pos = fio.tellp();
+		fio.read((char*)&st, sizeof(st));
+		if (st.stchk(temp) == 0)
+		{
+
+			st.withd(qty);
+			fio.seekp(pos);
+			fio.write((char*)&st, sizeof(st));
+			i++; break;
+		}
+	}
+
+
+	if (i != 1)
+		cout << "\n\n!!Record not found!!";
+	fio.close();
+	cin.get();
+	system("cls");
+	disp();
+	_getch();
+}
+void disp()
+{
+	int i = 1;
+	cout << "\n==================================================================";
+	cout << "\n\n=================\tTHE STOCK ITEMS ARE\t==================";
+	cout << "\n\n==================================================================\n";
+	cout << "\n\nNAZWA PRODUKTU \tILOSC W MAGAZYNIE\t\t\t CENA";
+	cout << "\n\n============================================================\n";
+	fin.open("shop.dat", ios::binary);
+	while (!fin.eof())
+	{
+		fin.read((char*)&st, sizeof(st));
+		if (!fin.eof())
+		{
+			if (fin.tellg() < 0)
+			{
+				i = 0; break;
+			}
+			st.show();
+		}
+	}
+	if (i == 0)
+	{
+		cout << "\n\n\t\t\t!!Empty record room!!";
+		_getch();
+	}
+	fin.close();
+
+}
+void refill()
+{
+	system("cls");
+	char temp[100]; int qty;
+	int i = 0;
+	long pos = 0;
+	disp();
+	cout << "\n\nWPISZ NAZWE PRODUKTU \n" << endl;
+	cin >> temp;
+	cout << "\n\nPODAJ ILOSC: \n" << endl;
+	cin >> qty;
+	fio.open("shop.dat", ios::binary | ios::out | ios::in);
+	while (fio)
+	{
+		pos = fio.tellp();
+		fio.read((char*)&st, sizeof(st));
+		if (st.stchk(temp) == 0)
+		{
+
+			st.refil(qty);
+			fio.seekp(pos);
+			fio.write((char*)&st, sizeof(st));
+			i++; break;
+		}
+	}
+	if (i != 1)
+		cout << "\n\n!!Record not found!!";
+	fio.close();
+	system("cls");
+	cin.get();
+	disp(); cin.get();
+
+
+}
+void remove()
+{
+	system("cls");
+	int i = 0;
+	char temp[30];
+	cout << "\n\t\t\t\tUSUWANIE PRODUKTU";
+	cout << "\n\nPODAJ NAZWE PRODUKTU:";
+	cin >> temp;
+	fout.open("temp.dat", ios::binary);
+	fin.open("shop.dat", ios::binary);
+	while (!fin.eof())
+	{
+		fin.read((char*)&st, sizeof(st));
+		if (!fin.eof())
+			if (st.stchk(temp) == 0)
+			{
+				st.show();
+				cout << "\n\n\t\tPRODUKT USUNIETY";
+				i++;
+			}
+			else
+				fout.write((char*)&st, sizeof(st));
+	}
+	if (i == 0)
+		cout << "\n\n!!Record not found!!";
+	fin.close();
+	fout.close();
+	remove("shop.dat");
+	rename("temp.dat", "shop.dat");
+}
+
+int main()
+{
+
+
+	//  MENU  //////////////////////
+	int ilosc_napojow = 6;
+	int ilosc_posilkow = 5;
+
+
+	Napoje* tab_Napoje = new Napoje[ilosc_napojow];
+
+	Posilki* tab_Posilki = new Posilki[ilosc_posilkow];
+
+	tab_Napoje[0] = { 1, "Woda mineralna 0,5l", 4 };
+	tab_Napoje[1] = { 2, "Pepsi 0,5l", 5 };
+	tab_Napoje[2] = { 3, "Mirinda 0,5l", 5 };
+	tab_Napoje[3] = { 4, "Sprite 0,5l", 5 };
+	tab_Napoje[4] = { 5, "Tymbark - pomarańcza 0,5l", 5 };
+	tab_Napoje[5] = { 6, "Tymbark - wiśnia, jabłko 0,5l", 5 };
+
+	tab_Posilki[0] = { 1, "Pierogi ruskie", 15 };
+	tab_Posilki[1] = { 2, "Pierogi z mięsem", 17 };
+	tab_Posilki[2] = { 3, "Pierogi z truskawkami", 14 };
+	tab_Posilki[3] = { 4, "Naleśniki z serem", 15 };
+	tab_Posilki[4] = { 5, "Kotlet schabowy z grillowanymi warzywami, 25" };
+	
+	//////////// LOGOWANIE /////////
+	string login;
+	
+	cout << "\n\n\n\n";
+	cout << "\t\t*************************************************" << endl;
+	cout << "\t\t*                                               *" << endl;
+	cout << "\t\t*            WITAJ W SYSTEMIE RESTAURACJI !     *" << endl;
+	cout << "\t\t*                                               *" << endl;
+	cout << "\t\t*    DOSTEPNI UZYTKOWNICY:                      *" << endl;
+	cout << "\t\t*  - Manager                                    *" << endl;
+	cout << "\t\t*  - Kelner                                     *" << endl;
+	cout << "\t\t*  - SzefKuchni                                 *" << endl;
+	cout << "\t\t*  - Dostawca                                   *" << endl;
+	cout << "\t\t*                                               *" << endl;
+	cout << "\t\t*  WYBIERZ KONTO WPISUJAC LOGIN UZYTKOWNIKA     *" << endl;
+	cout << "\t\t*                                               *" << endl;
+	cout << "\t\t*************************************************" << endl;
+
+	for (;;)
+	{
+
+
+
+		cout << "Wpisz id pracownika: " << endl;
+		cin >> login;
+
+		if (login == "Kelner")
+		{
+			Kelner* kelner = new Kelner;
+			kelner->LogowanieKelner();
+			break;
+		}
+		else if (login == "SzefKuchni")
+		{
+			Szef_kuchni* szef = new Szef_kuchni;
+				szef->LogowanieSzefKuchni();
+			break;
+		}
+		else if (login == "Dostawca")
+		{
+			Dostawca* dostawca = new Dostawca;
+			dostawca->LogowanieDostawca();
+			break;
+		}
+		else if (login == "Manager")
+		{
+			Manager* manager = new Manager;
+			manager->LogowanieManager();
+			system("cls");
+		dealermenu:
+			system("cls");
+			cout << "\n\n\n\n";
+			cout << "\t\t*************************************************" << endl;
+			cout << "\t\t*                                               *" << endl;
+			cout << "\t\t*            WITAJ W SYSTEMIE MANAGERA !        *" << endl;
+			cout << "\t\t*                                               *" << endl;
+			cout << "\t\t*   DOSTEPNE OPCJE:                             *" << endl;
+			cout << "\t\t*1. Dodaj nowy produkt                          *" << endl;
+			cout << "\t\t*2. Pokaz stan magazynu                         *" << endl;
+			cout << "\t\t*3. Uzupelnij stan                              *" << endl;
+			cout << "\t\t*4. Usun produkty                               *" << endl;
+			cout << "\t\t*5. Wyjdz                                       *" << endl;
+			cout << "\t\t*                                               *" << endl;
+			cout << "\t\t*  WYBIERZ OPCJE WPISUJAC JEJ NUMER             *" << endl;
+			cout << "\t\t*                                               *" << endl;
+			cout << "\t\t*************************************************" << endl;
+			
+			cin >> i;
+			if (i == 1)
+			{
+				addnew(); _getch();
+				goto dealermenu;
+			}
+
+			else if (i == 2)
+			{
+				system("cls");
+				disp(); _getch(); goto dealermenu;
+			}
+			else if (i == 3)
+			{
+				refill(); goto dealermenu;
+			}
+			else if (i == 4)
+			{
+				remove(); _getch(); goto dealermenu;
+			}
+			else
+			{
+				system("cls");
+				_getch();
+				exit(0);
+			}
+			break;
+		}
+		else
+		{
+			cout << "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: " << endl;
+			
+		}
+
+
+	}
+	
+	
+
+	
+	
+	
+	cout<<endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
+
+	delete[] tab_Napoje;
+	delete[] tab_Posilki;
+
+	system("pause");
+	return 0;
+}
