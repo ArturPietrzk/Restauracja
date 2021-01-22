@@ -79,7 +79,7 @@ Zamowienie::Zamowienie() {
 class Rachunek
 {
 public:
-	
+
 
 	float koszt_zamowienia;
 	Rachunek();
@@ -152,7 +152,7 @@ void Szef_kuchni::WykonanieZamowienia(Rachunek b) {
 
 
 
-	if (licznik==0) {
+	if (licznik == 0) {
 		cout << PL("Brak złożonego zamówienia") << endl;
 
 
@@ -167,9 +167,9 @@ void Szef_kuchni::WykonanieZamowienia(Rachunek b) {
 }
 class Kelner
 {
-	
+
 public:
-	
+
 	char character = ' ';
 	unsigned tries = 3;
 	Kelner();
@@ -276,8 +276,6 @@ class Magazyn
 public:
 	void get();
 	void get2();
-	void show();
-	void show_menu();
 	void disp();
 	void addnew();
 	void pokaz_menu();
@@ -301,7 +299,7 @@ int Magazyn::stchk(char nm[30])
 	if (strcmp(nm, name) == 0)
 	{
 		return 0;
-		
+
 	}
 	else
 		return 1;
@@ -309,8 +307,8 @@ int Magazyn::stchk(char nm[30])
 void Magazyn::get()
 {
 	cin >> name;
-		cin >> pr;
-		cin >> quant;
+	cin >> pr;
+	cin >> quant;
 
 }
 void Magazyn::get2()
@@ -334,7 +332,7 @@ void Magazyn::withdraw(Zamowienie a, Rachunek b)
 	int x;
 	int l = 0;
 	//char* tab[50];
-	
+
 	pokaz_menu();
 
 	cout << PL("\nPodaj ilość produktów jaką chcesz zamowić \n") << endl;
@@ -356,18 +354,18 @@ void Magazyn::withdraw(Zamowienie a, Rachunek b)
 				fio.read((char*)&st, sizeof(st));
 				if (st.stchk(a.pozycje_zamowienia) == 0)
 				{
-					
-					
-					
+
+
+
 					if (quant >= qty)
 					{
 						quant -= qty;
 						cout << PL("\n\nZamowienie zostało przyjęte.\n");
 						x = pr * qty;
 						b.koszt_zamowienia += x;
-						
+
 						cout << PL("Twoje zamówienie to: ") << a.pozycje_zamowienia;
-						cout << PL("\n\nRazem będzie: ") << b.koszt_zamowienia<<PL("zł");
+						cout << PL("\n\nRazem będzie: ") << b.koszt_zamowienia << PL("zł");
 						_getch();
 						licznik++;
 
@@ -384,12 +382,12 @@ void Magazyn::withdraw(Zamowienie a, Rachunek b)
 				}
 			}
 		}
-		
-		
 
-		
-		
-		
+
+
+
+
+
 
 		if (i != 1)
 			cout << "\n\n!!Nie ma takiej pozycji w menu!!";
@@ -398,32 +396,32 @@ void Magazyn::withdraw(Zamowienie a, Rachunek b)
 		cin.get();
 		system("cls");
 		disp();
-		
+
 		_getch();
 	}
 
 }
 
 void PlaceCursor(const int x, const int y) {
-	
 
-		
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	
 
-		
-		COORD PlaceCursorHere;
-	
-		PlaceCursorHere.X = x;
-	
-		PlaceCursorHere.Y = y;
-	
 
-		
-		SetConsoleCursorPosition(hConsole, PlaceCursorHere);
-	
-		return;
-	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+
+
+	COORD PlaceCursorHere;
+
+	PlaceCursorHere.X = x;
+
+	PlaceCursorHere.Y = y;
+
+
+
+	SetConsoleCursorPosition(hConsole, PlaceCursorHere);
+
+	return;
+
 }
 
 void Magazyn::addnew()
@@ -444,7 +442,7 @@ void Magazyn::addnew()
 	{
 
 		int j, l, sum = 0;
-		fout.open("shop.txt",   ios::app);
+		fout.open("shop.txt", ios::app);
 		for (i = 0; i < n; i++)
 
 		{
@@ -529,7 +527,7 @@ void Magazyn::disp()
 			{
 				i = 0; break;
 			}
-			
+
 			PlaceCursor(0, y);
 			cout << name;
 			PlaceCursor(30, y);
@@ -537,9 +535,9 @@ void Magazyn::disp()
 			PlaceCursor(60, y);
 			cout << pr;
 			y = y + 2;
-		
+
 		}
-		
+
 	}
 	if (i == 0)
 	{
@@ -591,7 +589,7 @@ void remove()
 	cout << "\n\t\t\t\tUSUWANIE PRODUKTU";
 	cout << "\n\nPODAJ NAZWE PRODUKTU:";
 	cin >> temp;
-	fout.open("temp.txt" );
+	fout.open("temp.txt");
 	fin.open("shop.txt");
 	while (!fin.eof())
 	{
@@ -599,7 +597,7 @@ void remove()
 		if (!fin.eof())
 			if (st.stchk(temp) == 0)
 			{
-				st.show();
+				st.disp();
 				cout << PL("\n\n\t\tPRODUKT USUNIĘTY");
 				i++;
 			}
@@ -630,12 +628,12 @@ start:
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*            WITAJ W SYSTEMIE RESTAURACJI !     *" << endl;
 		cout << "\t\t*                                               *" << endl;
-	cout <<PL(  "\t\t*    DOSTĘPNI UZYTKOWNICY:                      *" )<< endl;
+		cout << PL("\t\t*    DOSTĘPNI UZYTKOWNICY:                      *") << endl;
 		cout << "\t\t*  - Manager                                    *" << endl;
 		cout << "\t\t*  - Kelner                                     *" << endl;
 		cout << "\t\t*  - SzefKuchni                                 *" << endl;
 		cout << "\t\t*                                               *" << endl;
-	cout <<PL(  "\t\t*  WYBIERZ KONTO WPISUJĄC LOGIN UŻYTKOWNIKA     *") << endl;
+		cout << PL("\t\t*  WYBIERZ KONTO WPISUJĄC LOGIN UŻYTKOWNIKA     *") << endl;
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*************************************************" << endl;
 
@@ -649,9 +647,9 @@ start:
 			kelner->LogowanieKelner();
 			st.withdraw(zamowienie1, rachunek1);
 			_getch();
-			
+
 			goto start;
-			
+
 		}
 		else if (login == "SzefKuchni")
 		{
@@ -659,15 +657,15 @@ start:
 			szef->LogowanieSzefKuchni();
 			szef->WykonanieZamowienia(rachunek1);
 			system("pause");
-			
+
 			goto start;
-			
+
 		}
 		else if (login == "Manager")
 		{
 			Manager* manager = new Manager;
 			manager->LogowanieManager();
-			
+
 		managermenu:
 			system("cls");
 			cout << "\n\n\n\n";
@@ -675,12 +673,12 @@ start:
 			cout << "\t\t*                                               *" << endl;
 			cout << "\t\t*            WITAJ W SYSTEMIE MANAGERA !        *" << endl;
 			cout << "\t\t*                                               *" << endl;
-		cout <<PL(  "\t\t*   DOSTĘPNE OPCJE:                             *") << endl;
+			cout << PL("\t\t*   DOSTĘPNE OPCJE:                             *") << endl;
 			cout << "\t\t*1. Dodaj nowy produkt                          *" << endl;
-		cout <<PL(  "\t\t*2. Pokaż stan magazynu                         *") << endl;
-		cout <<PL(  "\t\t*3. Uzupełnij stan                              *") << endl;
-		cout <<PL(  "\t\t*4. Usuń produkty                               *") << endl;
-		cout <<PL(  "\t\t*5. Wyjdź                                       *") << endl;
+			cout << PL("\t\t*2. Pokaż stan magazynu                         *") << endl;
+			cout << PL("\t\t*3. Uzupełnij stan                              *") << endl;
+			cout << PL("\t\t*4. Usuń produkty                               *") << endl;
+			cout << PL("\t\t*5. Wyjdź                                       *") << endl;
 			cout << "\t\t*                                               *" << endl;
 			cout << "\t\t*  WYBIERZ OPCJE WPISUJAC JEJ NUMER             *" << endl;
 			cout << "\t\t*                                               *" << endl;
@@ -716,7 +714,7 @@ start:
 		}
 		else
 		{
-			cout << endl <<PL( "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: ") << endl << endl;
+			cout << endl << PL("Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: ") << endl << endl;
 			system("pause");
 			system("cls");
 
@@ -732,7 +730,7 @@ start:
 
 	cout << endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
 
-	
+
 	//delete[] orders;
 
 	system("pause");
