@@ -44,6 +44,7 @@ std::string PL(const char* text)
 
 
 int i, n;
+int licznik = 0;
 ifstream fin;
 ofstream fout;
 fstream fio;
@@ -54,130 +55,75 @@ string welcome;
 string goodbye;
 string confirmed;
 //string order = "";
-//int choice;
-int dlugosc;
+//int choice
 //int bill_price = 0;
-char counter;
 
 
 
-int pierogi_ruskie_cena = 15;
-int pierogi_z_miesem_cena = 17;
-int pierogi_z_truskawkami_cena = 16;
-int nalesniki_cena = 12;
-int kotlet_cena = 20;
-
-int woda_mineralna_cena = 5;
-int pepsi_cena = 7;
-int mirinda_cena = 7;
-int sprite_cena = 7;
-int tymbark_pomarancza_cena = 6;
-int tymbark_wisnia_cena = 6;
-
-//
-////string pierogi_ruskie = "pierogi ruskie,";
-//string pierogi_z_miesem = "pierogi z miesem,";
-//string pierogi_z_truskawkami = "pierogi z truskawkami,";
-//string nalesniki = "nalesniki z serem,";
-//string kotlet = "kotlet schabowy z grillowanymi warzywami,";
-//
-//string woda_mineralna = "woda mineralna,";
-//string pepsi = "pepsi,";
-//string mirinda = "mirinda,";
-//string sprite = "spirte,";
-//string tymbark_pomarancza = "tymbark pomarancza,";
-//string tymbark_wisnia = "tymbark wisnia jablko,";
 class Zamowienie
 {
 public:
-	int NumerIDZamowienia;
-	//date TerminZamowienia;
-	int NumerKelnetaTegoZamowienia;
-	int KolejnoscZamowienia;
-	double ZnizkaNaZamowienie;
-	string StatusZamowienia;
-	string RodzajPlatnosciZaZamowienie;
-	string order;
-	int choice;
+
+	char pozycje_zamowienia[100];
+	char temp[100];
 	Zamowienie();
 	void PrzygotowanieZamowienia();
-	void SerwowanieZamowienia();
-	void WydrukRachunku();
+
 };
 Zamowienie::Zamowienie() {
-	order = "";
-	choice = 0;
 
-
+	pozycje_zamowienia[0] = 0;
 
 }
 
 class Rachunek
 {
 public:
-	int NumerIDRachunku;
-	//Data wystawienia rachunku
-	string PozycjeZamowienia;
-	double CalkowityKosztZamowienia;
-	int bill_price;
+	
+
+	float koszt_zamowienia;
 	Rachunek();
-	void PrzekazanieRachunku();
-	double OdebranieZaplaty();
+
+
 };
 
 Rachunek::Rachunek() {
-	bill_price = 0;
+
+	koszt_zamowienia = 0;
 
 
 }
 
-void menu()
-{
-	cout << "_______________________________________________________" << endl;
-	cout << "MENU NASZEJ RESTAURACJI: " << endl << endl;
-	cout << "       POSILKI                                   CENA" << endl;
-	cout << "   1. Pierogi ruskie                              15" << endl;
-	cout << "   2. Pierogi z miesem                            17" << endl;
-	cout << "   3. Pierogi z truskawkami                       16" << endl;
-	cout << "   4. Nalesniki z serem                           12" << endl;
-	cout << "   5. Kotlet schabowy z grillowanymi warzywami    20" << endl <<
 
-		endl;
-	cout << "       NAPOJE" << endl;
-	cout << "   6. Woda mineralna  (0,5l)                      5" << endl;
-	cout << "   7. Pepsi  (0,5l)                               7" << endl;
-	cout << "   8. Mirinda  (0,5l)                             7" << endl;
-	cout << "   9. Sprite  (0,5l)                              7" << endl;
-	cout << "   10. Tymbark - pomarancza  (0,5l)               6" << endl;
-	cout << "   11. Tymbark - wisnia, jablko  (0,5l)           6" << endl;
-	cout << "_______________________________________________________" << endl;
-}
+
+
 
 
 class Szef_kuchni {
 
 public:
-	int NumerIDPracownika;
-	string ImieSzefaKuchni;
-	string NazwiskoSzefaKuchni;
 	char character = ' ';
 	unsigned tries = 3;
 	Szef_kuchni();
 	void LogowanieSzefKuchni();
-	void WykonanieZamowienia(Zamowienie);
+	void WykonanieZamowienia(Rachunek);
 private:
 	string PasswordChef;
 	string password = "";
 };
+
+
 Szef_kuchni::Szef_kuchni()
 {
 	PasswordChef = "szefkuchni";
 }
+
+
 void Szef_kuchni::LogowanieSzefKuchni()
 {
-	cout << "Wpisano login dla szefa kuchni" << endl;
+	cout << PL("Wpisano login dla szefa kuchni") << endl;
 	do {
-		cout << "Wpisz haslo: ";
+		cout << PL("Wpisz hasło: ");
 		while ((character = _getch()) != '\r')
 		{
 			if (character != 8)
@@ -194,26 +140,26 @@ void Szef_kuchni::LogowanieSzefKuchni()
 		if (password != PasswordChef) {
 			password = "";
 			tries -= 1;
-			cout << "\nDostepne proby: " << tries << endl;
+			cout << PL("\nDostępne próby: ") << tries << endl;
 		}
 	} while (tries > 0 && password != PasswordChef);
 
 	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
-	else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+	else cout << PL("\nHasło poprawne. Witamy w systemie!\n");
 }
 
-void Szef_kuchni::WykonanieZamowienia(Zamowienie a) {
+void Szef_kuchni::WykonanieZamowienia(Rachunek b) {
 
 
 
-	if (a.order.empty()) {
-		cout << "Brak zlozonego zamowienia" << endl;
+	if (licznik==0) {
+		cout << PL("Brak złożonego zamówienia") << endl;
 
 
 
 	}
 	else {
-		cout << "Zamowienie:" << a.order << endl;
+		cout << PL("Zamówienie jest w trakcie wykonania") << endl;
 
 	}
 
@@ -221,16 +167,15 @@ void Szef_kuchni::WykonanieZamowienia(Zamowienie a) {
 }
 class Kelner
 {
-
+	
 public:
-	int NumerIDPracownika;
-	string ImieKelnera;
-	string NazwiskoKelnera;
+	
 	char character = ' ';
 	unsigned tries = 3;
 	Kelner();
 	void LogowanieKelner();
-	void ZamowienieKelner(Zamowienie, Rachunek);
+	void pokaz_menu();
+
 private:
 	string PasswordWaiter;
 	string password = "";
@@ -244,7 +189,7 @@ void Kelner::LogowanieKelner()
 {
 	cout << "Wpisano login dla kelnera" << endl;
 	do {
-		cout << "Wpisz haslo: ";
+		cout << PL("Wpisz hasło: ");
 		while ((character = _getch()) != '\r')
 		{
 			if (character != 8)
@@ -261,663 +206,24 @@ void Kelner::LogowanieKelner()
 		if (password != PasswordWaiter) {
 			password = "";
 			tries -= 1;
-			cout << "\nDostepne proby: " << tries << endl;
+			cout << PL("\nDostepne proby: ") << tries << endl;
 		}
 	} while (tries > 0 && password != PasswordWaiter);
 
 	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
-	else cout << "\nHaslo poprawne. Witamy w systemie!\n";
+	else cout << PL("\nHasło poprawne. Witamy w systemie!\n");
 }
 
-void Kelner::ZamowienieKelner(Zamowienie a, Rachunek b)
-{
-	system("cls");
-	cout << welcome;
-	welcome = "WITAM W SYSTEMIE OBSLUGI!\n\n*Wchodza klienci i siadaja do stolika.*\n*Podchodzi kelner i podaje MENU.*\n";
 
-	dlugosc = welcome.length();
 
-	for (int j = 0; j <= dlugosc; j++)
-	{
-		cout << welcome[j];
-		Sleep(50);
-	}
-	Sleep(1000);
-
-	menu();
-	cout << endl;
-
-
-	cout << "KELNER: Witam, czy mozna przyjac zamowienie?" << endl;
-	cout << "KLIENT: Tak, oczywiscie." << endl << endl;
-	Sleep(2000);
-
-	cout << "*Wybierz pozycje do zamowienia" << endl << endl;
-	
-	
-	do
-	{
-		cin >> a.choice;
-
-		switch (a.choice)
-		{
-		case 1:
-		{
-			cout << "KLIENT: Poprosze pierogi ruskie." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz pierogi ruskie, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy pierogi ruskie, ";
-			}
-
-			b.bill_price = b.bill_price + (pierogi_ruskie_cena * a.choice);
-		}break;
-		case 2:
-		{
-			cout << "KLEINT: Poprosze pierogi z miesem." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Raz poprosze.";
-
-				counter = '1';
-
-				a.order = a.order + " raz pierogi z miesem, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy pierogi z miesem, ";
-			}
-
-			b.bill_price = b.bill_price + (pierogi_z_miesem_cena * a.choice);
-		}break;
-
-		case 3:
-		{
-			cout << "KLIENT: Poprosze pierogi z truskawkami." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz pierogi z truskawkami, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy pierogi z truskawkami, ";
-			}
-
-			b.bill_price = b.bill_price + (pierogi_z_truskawkami_cena * a.choice);
-		}break;
-
-		case 4:
-		{
-			cout << "KLIENT: Poprosze nalesniki z serem." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz nalesniki z serem, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy nalesniki z serem, ";
-			}
-
-			b.bill_price = b.bill_price + (nalesniki_cena * a.choice);
-		}break;
-
-		case 5:
-		{
-			cout << "KLIENT: Poprosze kotleta schabowego z grillowanymi warzywami." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz kotlet schabowy z grillowanymi warzywami, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy kotlet schabowy z grillowanymi warzywami, ";
-			}
-
-			b.bill_price = b.bill_price + (kotlet_cena * a.choice);
-		}break;
-
-		case 6:
-		{
-			cout << "KLIENT: Do picia poprosze wode mineralna." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz woda mineralna, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy woda mineralna, ";
-			}
-
-			b.bill_price = b.bill_price + (woda_mineralna_cena * a.choice);
-		}break;
-
-		case 7:
-		{
-			cout << "KLIENT: Do picia poprosze Pepsi." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz Pepsi, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy Pepsi, ";
-			}
-
-			b.bill_price = b.bill_price + (pepsi_cena * a.choice);
-		}break;
-
-		case 8:
-		{
-			cout << "KLIENT: Do picia poprosze Mirinde." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz Mirinda, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy Mirinda, ";
-			}
-
-			b.bill_price = b.bill_price + (mirinda_cena * a.choice);
-		}break;
-
-		case 9:
-		{
-			cout << "KLIENT: Do picia poprosze Sprite." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz Sprite, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy Sprite, ";
-			}
-
-			b.bill_price = b.bill_price + (sprite_cena * a.choice);
-		}break;
-
-		case 10:
-		{
-			cout << "KLIENT: Do picia poprosze Tymbark o smaku pomaranczowym." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz Tymbark pomarancza, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy Tymbark pomarancza, ";
-			}
-
-			b.bill_price = b.bill_price + (tymbark_pomarancza_cena * a.choice);
-		}break;
-
-		case 11:
-		{
-			cout << "KLIENT: Do picia poprosze Tymbark o smaku wisni z jablkiem." << endl;
-			Sleep(2000);
-			cout << "KELNER: Ile razy?" << endl;
-
-			cin >> a.choice;
-
-			if (a.choice == 1)
-			{
-				cout << "KLIENT: Poprosze raz.";
-
-				counter = '1';
-
-				a.order = a.order + " raz Tymbark wisnia jablko, ";
-			}
-			else
-			{
-				cout << "KLIENT: " << a.choice << " razy poprosze.";
-
-				if (a.choice == 2)
-					counter = '2';
-				if (a.choice == 3)
-					counter = '3';
-				if (a.choice == 4)
-					counter = '4';
-				if (a.choice == 5)
-					counter = '5';
-				if (a.choice == 6)
-					counter = '6';
-				if (a.choice == 7)
-					counter = '7';
-				if (a.choice == 8)
-					counter = '8';
-				if (a.choice == 9)
-					counter = '9';
-				if (a.choice == 10)
-					counter = '10';
-				if (a.choice == 11)
-					counter = '11';
-
-				a.order = a.order + " " + counter + "razy Tymbark wisnia jablko, ";
-			}
-
-			b.bill_price = b.bill_price + (tymbark_wisnia_cena * a.choice);
-		}break;
-
-		default:
-		{
-			cout << "KELNER: Przepraszam, ale niestety nie mamy takiej pozycji w naszym MENU.";
-			Sleep(2000);
-		}break;
-		}
-
-		Sleep(2000);
-		cout << endl << "KELNER: Czy bedzie cos jeszcze?";
-		Sleep(2000);
-
-		cout << endl << endl << "*1. Dodaj inne pozycje do zamowienia.*" << endl;
-		cout << "*(dowolony przycisk) Zakoncz zamowienie.*" << endl;
-
-		cin >> a.choice;
-
-		if (a.choice == 1)
-		{
-			cout << endl << "KLIENT: Tak, jeszcze cos domowie." << endl;
-			Sleep(2000);
-			cout << "KELNER: Dobrze, prosze cos wybrac z MENU." << endl << endl;
-			Sleep(3500);
-			system("cls");
-			menu();
-			cout << endl << endl << "*Wybierz kolejne pozycje do zamowienia" << endl << endl;
-		}
-		else
-		{
-			cout << "" << endl;
-		}
-
-	} while (a.choice == 1);
-
-	Sleep(1000);
-
-	if (a.order != "")
-	{
-		cout << endl << endl << "KELNER: W takim razie bardzo dziekuje. Dla pewnosci powtorze zamowienie." << endl;
-		Sleep(2000);
-		cout << "KELNER: Mamy tutaj" << a.order << "\nCzy wszystko sie zgadza?" << endl << endl;
-
-		system("pause");
-
-		cout << endl << "KLIENT: Tak, zamowienie sie zgadza." << endl;
-		Sleep(2000);
-
-		cout << "KELNER: Bardzo sie ciesze. Rachunek do zaplaty bedzie wynosil " << b.bill_price << "zl" << endl;
-		Sleep(2000);
-
-		cout << endl << endl << confirmed;
-		confirmed = "\t\t\t*Zamowienie zostalo zlozone*";
-
-		dlugosc = confirmed.length();
-
-		for (int j = 0; j <= dlugosc; j++)
-		{
-			cout << confirmed[j];
-			Sleep(50);
-		}
-
-	}
-	else
-	{
-		cout << endl << endl << "KELNER: W takim razie bardzo dziekuje. Niestety przykro mi, ze nic sie nie zostalo zamowione z naszego MENU. Zapraszamy ponownie, do widzenia!" << endl;
-		Sleep(2000);
-
-		cout << endl << endl << goodbye;
-		goodbye = "*\t\t\tKlienci opuszczaja restauracje*\n";
-
-		dlugosc = goodbye.length();
-
-		for (int j = 0; j <= dlugosc; j++)
-		{
-			cout << goodbye[j];
-			Sleep(50);
-		}
-		Sleep(2000);
-	}
-
-	cout << endl << endl;
-	system("pause");
-
-	system("cls");
-}
-
-class Napoje {
-
-public:
-	int NumerIDNapoju;
-	string NazwaNapoju;
-	double CenaNapoju;
-};
 
 
 
 class Manager {
-
+	friend void refil();
+	friend void remove();
 public:
-	int NumerIDPracownika;
-	string ImieManagera;
-	string NazwiskoManagera;
+
 	char character = ' ';
 	unsigned tries = 3;
 	Manager();
@@ -934,7 +240,7 @@ void Manager::LogowanieManager()
 {
 	cout << "Wpisano login dla Managera" << endl;
 	do {
-		cout << "Wpisz haslo: ";
+		cout << PL("Wpisz hasło: ");
 		while ((character = _getch()) != '\r')
 		{
 			if (character != 8)
@@ -951,25 +257,19 @@ void Manager::LogowanieManager()
 		if (password != PasswordManager) {
 			password = "";
 			tries -= 1;
-			cout << "\nDostepne proby: " << tries << endl;
+			cout << PL("\nDostępne próby: ") << tries << endl;
 		}
 	} while (tries > 0 && password != PasswordManager);
 
-	if (tries == 0) cout << "\nUzytkownik zablokowany!\n";
-	else cout << "\nHaslo poprawne. Witamy w systemie szefie!\n";
+	if (tries == 0) cout << PL("\nUżytkownik zablokowany!\n");
+	else cout << PL("\nHasło poprawne. Witamy w systemie szefie!\n");
 }
-class Posilki
-{
-public:
-	int NumerIDPosilku;
-	string NazwaPosilku;
-	double CenaPosilku;
-	bool PrzygotowaniePosilku();
-};
 
 
-class stock
+
+class Magazyn
 {
+	friend void PlaceCursor();
 	char name[20], pass[15];
 	float pr; int quant;
 
@@ -979,13 +279,15 @@ public:
 	void show();
 	void show_menu();
 	void disp();
+	void addnew();
+	void pokaz_menu();
 	int stchk(char nm[30]);
 	void refil(int qty);
-	void withdraw();
+	void withdraw(Zamowienie, Rachunek);
 }st;
 
 
-void stock::refil(int qty)
+void Magazyn::refil(int qty)
 {
 
 	quant += qty;
@@ -994,44 +296,31 @@ void stock::refil(int qty)
 
 
 }
-int stock::stchk(char nm[30])
+int Magazyn::stchk(char nm[30])
 {
 	if (strcmp(nm, name) == 0)
+	{
 		return 0;
+		
+	}
 	else
 		return 1;
 }
-void stock::get()
+void Magazyn::get()
 {
 	cin >> name;
 		cin >> pr;
 		cin >> quant;
 
 }
-void stock::get2()
+void Magazyn::get2()
 {
 	cin >> name >> quant;
 }
 
-void stock::show()
-{
 
 
-	PlaceCursor(0,12);
-	cout  << name;
-	PlaceCursor(30, 12);
-	cout << quant;
-	PlaceCursor(60, 12);
-	cout << pr;
-}
-void stock::show_menu()
-{
-	PlaceCursor(0, 12);
-	cout << name;
-	PlaceCursor(30, 12);
-	cout << pr;
-}
-void stock::withdraw()
+void Magazyn::withdraw(Zamowienie a, Rachunek b)
 {
 	system("cls");
 	char temp[100];
@@ -1044,11 +333,11 @@ void stock::withdraw()
 	long pos = 0;
 	int x;
 	int l = 0;
-	char* tab[50];
+	//char* tab[50];
 	
 	pokaz_menu();
 
-	cout << "\nPodaj ilosc produktow jaka chcesz zamowic \n" << endl;
+	cout << PL("\nPodaj ilość produktów jaką chcesz zamowić \n") << endl;
 	cin >> n;
 	if (n != 0)
 	{
@@ -1058,29 +347,29 @@ void stock::withdraw()
 		for (int j = 0; j < n; j++)
 		{
 			cout << "\n\nPodaj nazwe produktu \n" << endl;
-			cin >> temp;
-			cout << "\n\nPodaj ilosc: \n" << endl;
+			cin >> a.pozycje_zamowienia;
+			cout << PL("\n\nPodaj ilość: \n") << endl;
 			cin >> qty;
 			while (fio)
 			{
 				pos = fio.tellp();
 				fio.read((char*)&st, sizeof(st));
-				if (st.stchk(temp) == 0)
+				if (st.stchk(a.pozycje_zamowienia) == 0)
 				{
-					char t[80];
-					std::cin.getline(t, 80);
-					tab[i] = new char[std::strlen(t)];
-					strcpy(tab[i], t);
+					
+					
 					
 					if (quant >= qty)
 					{
 						quant -= qty;
 						cout << PL("\n\nZamowienie zostało przyjęte.\n");
 						x = pr * qty;
-						l += x;
-						cout << PL("Twoje zamówienie to: ") <<tab[j];
-						cout << PL("\n\nRazem będzie: ") << l<<PL("zł");
+						b.koszt_zamowienia += x;
+						
+						cout << PL("Twoje zamówienie to: ") << a.pozycje_zamowienia;
+						cout << PL("\n\nRazem będzie: ") << b.koszt_zamowienia<<PL("zł");
 						_getch();
+						licznik++;
 
 					}
 					else if (quant < qty)
@@ -1095,29 +384,8 @@ void stock::withdraw()
 				}
 			}
 		}
-		kolejne_zamowienie:
-		cout << PL("\n\nCzy chcesz dodać kolejne zamówienie?");
-		cout << "\n\n=========Wpisz tak lub nie=========="<<endl;
-		cin >> zmienna;
-		if (zmienna == tak)
-		{
-			withdraw();
-		}
-		else if (zmienna ==nie)
-		{
-			fio.close();
-			cin.get();
-			system("cls");
-			//pokaz_menu();
-
-			_getch();
-		}
-		else
-		{
-			cout << PL("\nNie wpisałeś wymaganej frazy");
-			cout << PL("\nSpróbuj jeszcze raz");
-			goto kolejne_zamowienie;
-		}
+		
+		
 
 		
 		
@@ -1158,7 +426,7 @@ void PlaceCursor(const int x, const int y) {
 	
 }
 
-void addnew()
+void Magazyn::addnew()
 {
 
 
@@ -1168,7 +436,7 @@ void addnew()
 	_getch();
 	system("cls");
 
-	cout << "\nPodaj ilosc prouktow jaka chcesz dodac: ";
+	cout << PL("\nPodaj ilość produktów jaka chcesz dodać: ");
 	cin >> n;
 
 
@@ -1181,7 +449,7 @@ void addnew()
 
 		{
 
-			cout << "\n\nWprowadz Nazwe, cene i ilosc produktu zgodnie z kolejnoscia\n\n";
+			cout << PL("\n\nWprowadź Nazwe, cene i ilość produktu \n\n");
 			st.get();
 			fout.write((char*)&st, sizeof(st));
 			cout << "\n\nProdukt zaaktualizowany";
@@ -1208,9 +476,10 @@ void addnew()
 
 	}
 }
-void pokaz_menu()
+void Magazyn::pokaz_menu()
 {
 	int i = 1;
+	int y = 12;
 	cout << "\n==================================================================";
 	cout << "\n\n===========================\tMENU\t===========================";
 	cout << "\n\n==================================================================\n";
@@ -1226,24 +495,29 @@ void pokaz_menu()
 			{
 				i = 0; break;
 			}
-			st.show_menu();
+
+			PlaceCursor(0, y);
+			cout << st.name;
+			PlaceCursor(30, y);
+			cout << st.pr;
+			y++;
 		}
 	}
 	if (i == 0)
 	{
-		cout << "\n\n\t\t\t!!Empty record room!!";
+		cout << "\n\n\t\t\t!!Nie ma takiego produktu w magazynie!!";
 		_getch();
 	}
 	fin.close();
 }
-void stock::disp()
+void Magazyn::disp()
 {
 	int i = 1;
 	int y = 12;
 	cout << "\n==================================================================";
 	cout << "\n\n===========================\tMAGAZYN\t===========================";
 	cout << "\n\n==================================================================\n";
-	cout << "\n\nNAZWA PRODUKTU \tILOSC W MAGAZYNIE\t\t\t CENA";
+	cout << PL("\n\nNAZWA PRODUKTU \tILOŚĆ W MAGAZYNIE\t\t\t CENA");
 	cout << "\n\n============================================================\n";
 	fin.open("shop.txt");
 	while (!fin.eof())
@@ -1269,7 +543,7 @@ void stock::disp()
 	}
 	if (i == 0)
 	{
-		cout << "\n\n\t\t\t!!Empty record room!!";
+		cout << PL("\n\n\t\t\t!!Nie ma żadnych produktów w magazynie!!");
 		_getch();
 	}
 	fin.close();
@@ -1284,7 +558,7 @@ void refill()
 	st.disp();
 	cout << "\n\nWPISZ NAZWE PRODUKTU \n" << endl;
 	cin >> temp;
-	cout << "\n\nPODAJ ILOSC: \n" << endl;
+	cout << PL("\n\nPODAJ ILOŚĆ: \n") << endl;
 	cin >> qty;
 	fio.open("shop.txt", ios::out | ios::in);
 	while (fio)
@@ -1301,7 +575,7 @@ void refill()
 		}
 	}
 	if (i != 1)
-		cout << "\n\n!!Record not found!!";
+		cout << "\n\n!!Nie ma takiego produktu w magazynie!!";
 	fio.close();
 	system("cls");
 	cin.get();
@@ -1326,14 +600,14 @@ void remove()
 			if (st.stchk(temp) == 0)
 			{
 				st.show();
-				cout << "\n\n\t\tPRODUKT USUNIETY";
+				cout << PL("\n\n\t\tPRODUKT USUNIĘTY");
 				i++;
 			}
 			else
 				fout.write((char*)&st, sizeof(st));
 	}
 	if (i == 0)
-		cout << "\n\n!!Record not found!!";
+		cout << "\n\n!!Nie ma takiego produktu w magazynie!!";
 	fin.close();
 	fout.close();
 	remove("shop.txt");
@@ -1342,30 +616,6 @@ void remove()
 
 int main()
 {
-
-
-	//  MENU  //////////////////////
-	int ilosc_napojow = 6;
-	int ilosc_posilkow = 5;
-
-
-	Napoje* tab_Napoje = new Napoje[ilosc_napojow];
-
-	Posilki* tab_Posilki = new Posilki[ilosc_posilkow];
-
-	tab_Napoje[0] = { 1, "Woda mineralna 0,5l", 4 };
-	tab_Napoje[1] = { 2, "Pepsi 0,5l", 5 };
-	tab_Napoje[2] = { 3, "Mirinda 0,5l", 5 };
-	tab_Napoje[3] = { 4, "Sprite 0,5l", 5 };
-	tab_Napoje[4] = { 5, "Tymbark - pomarañcza 0,5l", 5 };
-	tab_Napoje[5] = { 6, "Tymbark - winia, jab³ko 0,5l", 5 };
-
-	tab_Posilki[0] = { 1, "Pierogi ruskie", 15 };
-	tab_Posilki[1] = { 2, "Pierogi z miêsem", 17 };
-	tab_Posilki[2] = { 3, "Pierogi z truskawkami", 14 };
-	tab_Posilki[3] = { 4, "Naleniki z serem", 15 };
-	tab_Posilki[4] = { 5, "Kotlet schabowy z grillowanymi warzywami, 25" };
-
 	//////////// LOGOWANIE /////////
 	string login;
 	Zamowienie zamowienie1;
@@ -1380,12 +630,12 @@ start:
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*            WITAJ W SYSTEMIE RESTAURACJI !     *" << endl;
 		cout << "\t\t*                                               *" << endl;
-		cout << "\t\t*    DOSTEPNI UZYTKOWNICY:                      *" << endl;
+	cout <<PL(  "\t\t*    DOSTĘPNI UZYTKOWNICY:                      *" )<< endl;
 		cout << "\t\t*  - Manager                                    *" << endl;
 		cout << "\t\t*  - Kelner                                     *" << endl;
 		cout << "\t\t*  - SzefKuchni                                 *" << endl;
 		cout << "\t\t*                                               *" << endl;
-		cout << "\t\t*  WYBIERZ KONTO WPISUJAC LOGIN UZYTKOWNIKA     *" << endl;
+	cout <<PL(  "\t\t*  WYBIERZ KONTO WPISUJĄC LOGIN UŻYTKOWNIKA     *") << endl;
 		cout << "\t\t*                                               *" << endl;
 		cout << "\t\t*************************************************" << endl;
 
@@ -1397,40 +647,40 @@ start:
 		{
 			Kelner* kelner = new Kelner;
 			kelner->LogowanieKelner();
-			st.withdraw();
+			st.withdraw(zamowienie1, rachunek1);
 			_getch();
-			//system("cls");
-			//kelner->ZamowienieKelner(zamowienie1, rachunek1);
+			
 			goto start;
-			//break;
+			
 		}
 		else if (login == "SzefKuchni")
 		{
 			Szef_kuchni* szef = new Szef_kuchni;
 			szef->LogowanieSzefKuchni();
-			szef->WykonanieZamowienia(zamowienie1);
+			szef->WykonanieZamowienia(rachunek1);
+			system("pause");
 			
 			goto start;
-			//break;
+			
 		}
 		else if (login == "Manager")
 		{
 			Manager* manager = new Manager;
 			manager->LogowanieManager();
 			
-		dealermenu:
+		managermenu:
 			system("cls");
 			cout << "\n\n\n\n";
 			cout << "\t\t*************************************************" << endl;
 			cout << "\t\t*                                               *" << endl;
 			cout << "\t\t*            WITAJ W SYSTEMIE MANAGERA !        *" << endl;
 			cout << "\t\t*                                               *" << endl;
-			cout << "\t\t*   DOSTEPNE OPCJE:                             *" << endl;
+		cout <<PL(  "\t\t*   DOSTĘPNE OPCJE:                             *") << endl;
 			cout << "\t\t*1. Dodaj nowy produkt                          *" << endl;
-			cout << "\t\t*2. Pokaz stan magazynu                         *" << endl;
-			cout << "\t\t*3. Uzupelnij stan                              *" << endl;
-			cout << "\t\t*4. Usun produkty                               *" << endl;
-			cout << "\t\t*5. Wyjdz                                       *" << endl;
+		cout <<PL(  "\t\t*2. Pokaż stan magazynu                         *") << endl;
+		cout <<PL(  "\t\t*3. Uzupełnij stan                              *") << endl;
+		cout <<PL(  "\t\t*4. Usuń produkty                               *") << endl;
+		cout <<PL(  "\t\t*5. Wyjdź                                       *") << endl;
 			cout << "\t\t*                                               *" << endl;
 			cout << "\t\t*  WYBIERZ OPCJE WPISUJAC JEJ NUMER             *" << endl;
 			cout << "\t\t*                                               *" << endl;
@@ -1439,22 +689,22 @@ start:
 			cin >> i;
 			if (i == 1)
 			{
-				addnew(); _getch();
-				goto dealermenu;
+				st.addnew(); _getch();
+				goto managermenu;
 			}
 
 			else if (i == 2)
 			{
 				system("cls");
-				st.disp(); _getch(); goto dealermenu;
+				st.disp(); _getch(); goto managermenu;
 			}
 			else if (i == 3)
 			{
-				refill(); goto dealermenu;
+				refill(); goto managermenu;
 			}
 			else if (i == 4)
 			{
-				remove(); _getch(); goto dealermenu;
+				remove(); _getch(); goto managermenu;
 			}
 			else
 			{
@@ -1466,7 +716,7 @@ start:
 		}
 		else
 		{
-			cout << endl << "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: " << endl << endl;
+			cout << endl <<PL( "Podano zly login, skontaktuj sie z administratorem w celu zmiany loginu i hasla badz wpisz jeszcze raz: ") << endl << endl;
 			system("pause");
 			system("cls");
 
@@ -1482,8 +732,7 @@ start:
 
 	cout << endl << "Restaurant project by: Michal Nycz, Jakub Pietrzak, Artur Pietrzkiewicz" << endl;
 
-	delete[] tab_Napoje;
-	delete[] tab_Posilki;
+	
 	//delete[] orders;
 
 	system("pause");
